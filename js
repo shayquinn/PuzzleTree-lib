@@ -67,6 +67,14 @@
         let imgW = getimg[i].width, imgH = getimg[i].height;
         let urlW = getimg[i].naturalWidth, urlH = getimg[i].naturalHeight;
         let factorX = imgW/urlW, factorY = imgH/urlH;
+        if(getimg[i].getAttribute("row") == null || getimg[i].getAttribute("row") == 0 || getimg[i].getAttribute("row") == 1){
+            console.error("Error row tag must be present and the value must be grater then one!")
+            return
+        }
+        if(getimg[i].getAttribute("col") == null || getimg[i].getAttribute("col") == 0 || getimg[i].getAttribute("col") == 1){
+            console.error("Error col tag must be present and the value must be grater then one!")
+            return
+        }
         let row = getimg[i].getAttribute("row"), col = getimg[i].getAttribute("col");
 
         orignalIds.push(imgId);
