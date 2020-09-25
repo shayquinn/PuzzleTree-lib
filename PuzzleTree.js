@@ -84,6 +84,7 @@
         dimentionWH.push([imgW, imgH]);
         posArray.push([imgX, imgY]);
         urls.push(url);
+        getimg[i].style.opacity = "0";
     }
 
 
