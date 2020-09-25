@@ -94,15 +94,15 @@
       for(let l=0;l<urls.length;l++){
         let row = divisionXArray[l][0], col=divisionXArray[l][1];
         let remanderX = divisionXArray[l][0]%row, remanderY = dimentionOrignalWH[l][1]%col;
-        console.log(remanderX+" "+remanderY);
         let iw = dimentionOrignalWH[l][0]-remanderX, ih = dimentionOrignalWH[l][1]-remanderY;
+        let liW = Math.floor(iw/row), liH = Math.floor(ih/col);
         let px = posArray[l][0], py = posArray[l][1];
         let body = document.getElementById("body");
         let con = document.createElement('div');
         con.id = "con"+l;
 
-        con.style.width = dimentionOrignalWH[l][0]+"px";
-        con.style.height = dimentionOrignalWH[l][1]+"px";
+        con.style.width = liW*row+"px";
+        con.style.height = liH*col+"px";
         con.style.position = "absolute";
         con.style.backgroundColor = "blue";
         con.style.left = px+"px";
@@ -130,8 +130,8 @@
         span.style.top = (posArray[l][1]+50)+"px";
         span.style.left = (posArray[l][0]+(iw / 2)) - 150 + "px";
         let ul1 = document.createElement('ul');
-        ul1.style.width = iw+"px";
-        ul1.style.height = ih+"px";
+        ul1.style.width = liW*row+"px";
+        ul1.style.height = liH*col+"px";
         ul1.style.position = "absolute";
         ul1.style.backgroundColor = "black";
         ul1.style.left = px+"px";
@@ -144,8 +144,6 @@
          ulArrayStatic = [];
          boundArray = [];
          positions = [];
-
-        let liW = iw/row, liH = ih/col;
 
       for(let i=0;i<row;i++){
         for(let j=0;j<col;j++){
