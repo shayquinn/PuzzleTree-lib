@@ -153,7 +153,7 @@
           li.style.position = "absolute";
           li.style.width = liW+"px";
           li.style.height = liH+"px";
-          li.style.background = "url("+urls[l]+") "+((iw-liW)*i)+"px "+((ih-liH)*j)+"px";
+          li.style.background = "url("+urls[l]+") "+(((liW*row)-liW)*i)+"px "+(((liH*col)-liH)*j)+"px";
 
           li.style.transform = "translate3d(" + (liW*i) + "px, " + (liH*j) + "px, 0)";
           positions.push([liW*i, liH*j]);
