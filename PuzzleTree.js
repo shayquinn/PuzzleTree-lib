@@ -86,8 +86,6 @@
         urls.push(url);
         getimg[i].style.opacity = "0";
     }
-
-
   }//end getImageDetalas
 
 
@@ -95,7 +93,7 @@
       for(let l=0;l<urls.length;l++){
         let row = divisionXArray[l][0], col=divisionXArray[l][1];
         let remanderX = divisionXArray[l][0]%row, remanderY = dimentionOrignalWH[l][1]%col;
-        let iw = dimentionOrignalWH[l][0]-remanderX, ih = dimentionOrignalWH[l][1]-remanderY;
+        let iw = dimentionOrignalWH[l][0], ih = dimentionOrignalWH[l][1];
         let liW = Math.floor(iw/row), liH = Math.floor(ih/col);
         let px = posArray[l][0], py = posArray[l][1];
         let body = document.getElementById("body");
@@ -153,7 +151,7 @@
           li.style.position = "absolute";
           li.style.width = liW+"px";
           li.style.height = liH+"px";
-          li.style.background = "url("+urls[l]+") "+((iw-liW)*i)+"px "+((ih-liH)*j)+"px";
+          li.style.background = "url("+urls[l]+") "+(((liW*row)-liW)*i)+"px "+(((liH*col)-liH)*j)+"px";
 
           li.style.transform = "translate3d(" + (liW*i) + "px, " + (liH*j) + "px, 0)";
           positions.push([liW*i, liH*j]);
@@ -403,3 +401,4 @@
          }
          return false;
     }//end isDescendant
+
