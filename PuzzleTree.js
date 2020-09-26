@@ -14,7 +14,6 @@
     let dimentionOrignalWH = [];
     let posArray = [];
     let urls = [];
-    let urlSize = [];
     let orignalIds = [];
     let scaleFactor = [];
 
@@ -68,12 +67,12 @@
         let urlW = getimg[i].naturalWidth, urlH = getimg[i].naturalHeight;
         let factorX = imgW/urlW, factorY = imgH/urlH;
         if(getimg[i].getAttribute("row") == null || getimg[i].getAttribute("row") == 0 || getimg[i].getAttribute("row") == 1){
-            console.error("Error row tag must be present and the value must be grater then one!")
-            return
+            console.error("Error row tag must be present and the value must be grater then one!");
+          	return;
         }
         if(getimg[i].getAttribute("col") == null || getimg[i].getAttribute("col") == 0 || getimg[i].getAttribute("col") == 1){
-            console.error("Error col tag must be present and the value must be grater then one!")
-            return
+            console.error("Error col tag must be present and the value must be grater then one!");
+            return;
         }
         let row = getimg[i].getAttribute("row"), col = getimg[i].getAttribute("col");
 
@@ -91,8 +90,7 @@
 
     function populate(){
       for(let l=0;l<urls.length;l++){
-        let row = divisionXArray[l][0], col=divisionXArray[l][1];
-        let remanderX = divisionXArray[l][0]%row, remanderY = dimentionOrignalWH[l][1]%col;
+        let row = divisionXArray[l][0], col=divisionXArray[l][1];   
         let iw = dimentionOrignalWH[l][0], ih = dimentionOrignalWH[l][1];
         let liW = Math.floor(iw/row), liH = Math.floor(ih/col);
         let px = posArray[l][0], py = posArray[l][1];
