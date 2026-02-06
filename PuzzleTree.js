@@ -176,7 +176,7 @@ function populate() {
                 li.style.height = tileH + "px";
 
                 // Background positioning using cumulative offsets
-                li.style.background = "url(" + urls[l] + ") -" + currentX + "px -" + currentY + "px";
+                li.style.background = "url(" + urls[l] + ") " + (-currentX) + "px " + (-currentY) + "px";
 
                 li.style.transform = "translate3d(" + currentX + "px, " + currentY + "px, 0)";
 
