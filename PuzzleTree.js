@@ -135,10 +135,10 @@ function populate() {
         ul1.style.width = liW * row + "px";
         ul1.style.height = liH * col + "px";
         ul1.style.position = "absolute";
-        ul1.style.backgroundColor = "black";
+        ul1.style.backgroundColor = "#07f0e5";
         ul1.style.left = px + "px";
         ul1.style.top = py + "px";
-        ul1.style.boxShadow = "5px 10px 18px #000";
+        ul1.style.boxShadow = "5px 10px 18px #010101";
         ul1.id = "ul1" + l;
         ulIds.push("ul1" + l);
 
