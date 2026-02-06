@@ -2,7 +2,7 @@
 
 A lightweight JavaScript library that transforms images into interactive, draggable jigsaw puzzles directly in your web browser. No dependencies required!
 
-![Demo](puzzletree.gif)
+![Demo](gif.gif)
 
 ## Features
 
