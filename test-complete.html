@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>PuzzleTree - Complete Test Suite</title>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <style>
+    *,
+    *:after,
+    *::before {
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 20px;
+      height: 3000px;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .test-section {
+      margin-bottom: 600px;
+    }
+
+    .description {
+      font-size: 14px;
+      margin-bottom: 10px;
+      background-color: #f0f0f0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .puzzle-container {
+      position: relative;
+      margin-top: 20px;
+    }
+
+    .puzzleTree {
+      position: relative;
+    }
+
+  </style>
+</head>
+
+<body id="body">
+  <h1>PuzzleTree Library - Test Suite</h1>
+  
+  <div class="test-section">
+    <div class="description">
+      <strong>Test 1: Shuffled Puzzle (Default Behavior)</strong><br>
+      Grid: 12x6 | Shuffle: default (true)<br>
+      This tests the default shuffled puzzle behavior with an odd grid that requires remainder distribution.
+    </div>
+    <div class="puzzle-container">
+      <img id="img1" src="images/im1.jpg" class="puzzleTree" row="12" col="6" alt="Puzzle">
+    </div>
+  </div>
+
+  <div class="test-section">
+    <div class="description">
+      <strong>Test 2: Non-Shuffled Puzzle</strong><br>
+      Grid: 12x6 | Shuffle: false<br>
+      This tests the new shuffle="false" feature where pieces remain in order.
+    </div>
+    <div class="puzzle-container">
+      <img id="img2" src="images/im1.jpg" class="puzzleTree" row="12" col="6" shuffle="false" alt="Puzzle">
+    </div>
+  </div>
+
+  <div class="test-section">
+    <div class="description">
+      <strong>Test 3: Different Grid Size (Shuffled)</strong><br>
+      Grid: 8x4 | Shuffle: default (true)<br>
+      This tests a different grid configuration with the image division fix.
+    </div>
+    <div class="puzzle-container">
+      <img id="img3" src="images/im1.jpg" class="puzzleTree" row="8" col="4" alt="Puzzle">
+    </div>
+  </div>
+
+  <div class="test-section">
+    <div class="description">
+      <strong>Test 4: Different Grid Size (Non-Shuffled)</strong><br>
+      Grid: 8x4 | Shuffle: false<br>
+      Another grid size with shuffle disabled.
+    </div>
+    <div class="puzzle-container">
+      <img id="img4" src="images/im1.jpg" class="puzzleTree" row="8" col="4" shuffle="false" alt="Puzzle">
+    </div>
+  </div>
+  
+  <script src="PuzzleTree.js"></script>
+</body>
+
+</html>
