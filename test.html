@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>PuzzleTree Test</title>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <style>
+    *,
+    *:after,
+    *::before {
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      height: 2000px;
+    }
+
+    #img1 {
+      position: absolute;    
+      top: 20px;
+      left: 20px;   
+    }
+
+    #img2 {
+      position: absolute;    
+      top: 20px;
+      left: 520px;   
+    }
+
+    h1, h2 {
+      position: absolute;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      font-weight: bold;
+      z-index: 200;
+    }
+
+    #h1 {
+      top: 0px;
+      left: 20px;
+    }
+
+    #h2 {
+      top: 0px;
+      left: 520px;
+    }
+
+  </style>
+</head>
+
+<body id="body">
+  <h1 id="h1">Shuffled Puzzle (12x6)</h1>
+  <h2 id="h2">Non-shuffled Puzzle (12x6, shuffle="false")</h2>
+  
+  <!-- Test 1: Shuffled puzzle (default behavior) with odd dimensions -->
+  <img id="img1" src="images/im1.jpg" class="puzzleTree" row="12" col="6" alt="Puzzle">
+  
+  <!-- Test 2: Non-shuffled puzzle with shuffle="false" -->
+  <img id="img2" src="images/im1.jpg" class="puzzleTree" row="12" col="6" shuffle="false" alt="Puzzle">
+  
+  <script src="PuzzleTree.js"></script>
+</body>
+
+</html>

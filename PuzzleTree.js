@@ -16,6 +16,7 @@ let posArray = [];
 let urls = [];
 let orignalIds = [];
 let scaleFactor = [];
+let shuffleFlags = [];
 
 var container = document.getElementsByTagName("BODY")[0];
 
@@ -68,6 +69,8 @@ function getImageDetalas() {
         let factorX = imgW / urlW, factorY = imgH / urlH;
 
         let row = getimg[i].getAttribute("row"), col = getimg[i].getAttribute("col");
+        let shuffleAttr = getimg[i].getAttribute("shuffle");
+        let shouldShuffle = (shuffleAttr === null || shuffleAttr === "true");
 
         orignalIds.push(imgId);
         divisionXArray.push([row, col]);
@@ -76,6 +79,7 @@ function getImageDetalas() {
         dimentionWH.push([imgW, imgH]);
         posArray.push([imgX, imgY]);
         urls.push(url);
+        shuffleFlags.push(shouldShuffle);
         getimg[i].style.opacity = "0";
     }
 }//end getImageDetalas
@@ -85,26 +89,36 @@ function populate() {
     for (let l = 0; l < urls.length; l++) {
         let row = divisionXArray[l][0], col = divisionXArray[l][1];
         let iw = dimentionOrignalWH[l][0], ih = dimentionOrignalWH[l][1];
-        // fix 0, 1 division problem 
-        let liW = null, liH = null;
+        
+        // Calculate base tile size and remainders for accurate division
+        let baseTileW, baseTileH, remainderW, remainderH;
+        
         if (row == 0 || row == 1) {
-            liW = iw;
+            baseTileW = iw;
+            remainderW = 0;
         } else {
-            liW = Math.floor(iw / row);
+            baseTileW = Math.floor(iw / row);
+            remainderW = iw - (baseTileW * row);
         }
+        
         if (col == 0 || col == 1) {
-            liH = ih;
+            baseTileH = ih;
+            remainderH = 0;
         } else {
-            liH = Math.floor(ih / col);
+            baseTileH = Math.floor(ih / col);
+            remainderH = ih - (baseTileH * col);
         }
-        console.log("liW: " + liW + " liH: " + liH);
+        
+        console.log("baseTileW: " + baseTileW + " baseTileH: " + baseTileH);
+        console.log("remainderW: " + remainderW + " remainderH: " + remainderH);
+        
         let px = posArray[l][0], py = posArray[l][1];
         let body = document.getElementById("body");
         let con = document.createElement('div');
         con.id = "con" + l;
 
-        con.style.width = liW * row + "px";
-        con.style.height = liH * col + "px";
+        con.style.width = iw + "px";
+        con.style.height = ih + "px";
         con.style.position = "absolute";
         con.style.backgroundColor = "blue";
         con.style.left = px + "px";
@@ -132,8 +146,8 @@ function populate() {
         span.style.top = (posArray[l][1] + 50) + "px";
         span.style.left = (posArray[l][0] + (iw / 2)) - 150 + "px";
         let ul1 = document.createElement('ul');
-        ul1.style.width = liW * row + "px";
-        ul1.style.height = liH * col + "px";
+        ul1.style.width = iw + "px";
+        ul1.style.height = ih + "px";
         ul1.style.position = "absolute";
         ul1.style.backgroundColor = "black";
         ul1.style.left = px + "px";
@@ -147,19 +161,26 @@ function populate() {
         boundArray = [];
         positions = [];
 
+        let currentX = 0;
         for (let i = 0; i < row; i++) {
+            let tileW = baseTileW + (i < remainderW ? 1 : 0);
+            let currentY = 0;
+            
             for (let j = 0; j < col; j++) {
+                let tileH = baseTileH + (j < remainderH ? 1 : 0);
+                
                 let li = document.createElement('li');
                 li.setAttribute('draggable', "false");
                 li.style.position = "absolute";
-                li.style.width = liW + "px";
-                li.style.height = liH + "px";
+                li.style.width = tileW + "px";
+                li.style.height = tileH + "px";
 
-                li.style.background = "url(" + urls[l] + ") " + (((liW * row) - liW) * i) + "px " + (((liH * col) - liH) * j) + "px";
+                // Background positioning using cumulative offsets
+                li.style.background = "url(" + urls[l] + ") -" + currentX + "px -" + currentY + "px";
 
-                li.style.transform = "translate3d(" + (liW * i) + "px, " + (liH * j) + "px, 0)";
+                li.style.transform = "translate3d(" + currentX + "px, " + currentY + "px, 0)";
 
-                positions.push([liW * i, liH * j]);
+                positions.push([currentX, currentY]);
 
                 li.style.zIndex = 5;
                 li.id = "l" + l + ((col * i) + j);
@@ -169,7 +190,10 @@ function populate() {
                 ulArrayStatic.push("l" + l + ((col * i) + j));
                 ulArray.push("l" + l + ((col * i) + j));
                 ul1.appendChild(li);
+                
+                currentY += tileH;
             }
+            currentX += tileW;
             let body = document.getElementById("body");
             body.appendChild(ul1);
             body.appendChild(span);
@@ -182,7 +206,7 @@ function populate() {
         boundArrayArray.push(boundArray);
         positionsArray.push(positions);
         ulArrayStaticArray.push(ulArrayStatic);
-        ulArrayArray.push(chop(ulArray, positions));
+        ulArrayArray.push(chop(ulArray, positions, shuffleFlags[l]));
     }
 
     for (let i = 0; i < dimentionOrignalWH.length; i++) {
@@ -333,8 +357,8 @@ function refit(e, mx, my) {
     }
 } //end refit
 
-function chop(array, pos) {
-    let ret = shuffle(array);
+function chop(array, pos, shouldShuffle) {
+    let ret = shouldShuffle ? shuffle(array) : array.slice();
     ulArrayTemp = ret;
     for (let i = 0; i < ret.length; i++) {
         setTranslate(
