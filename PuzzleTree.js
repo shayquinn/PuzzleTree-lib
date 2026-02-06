@@ -70,7 +70,7 @@ function getImageDetalas() {
 
         let row = getimg[i].getAttribute("row"), col = getimg[i].getAttribute("col");
         let shuffleAttr = getimg[i].getAttribute("shuffle");
-        let shouldShuffle = (shuffleAttr === null || shuffleAttr === "true");
+        let shouldShuffle = (shuffleAttr !== "false");
 
         orignalIds.push(imgId);
         divisionXArray.push([row, col]);
