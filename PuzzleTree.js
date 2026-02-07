@@ -16,6 +16,7 @@ let posArray = [];
 let urls = [];
 let orignalIds = [];
 let scaleFactor = [];
+let shuffleArray = [];
 
 var container = document.getElementsByTagName("BODY")[0];
 
@@ -68,8 +69,12 @@ function getImageDetalas() {
         let factorX = imgW / urlW, factorY = imgH / urlH;
 
         let row = getimg[i].getAttribute("row"), col = getimg[i].getAttribute("col");
+        let shuffle = getimg[i].getAttribute("shuffle");
+        // Default to true if shuffle attribute is not set or is not "false"
+        let shouldShuffle = (shuffle !== "false");
 
         orignalIds.push(imgId);
+        shuffleArray.push(shouldShuffle);
         divisionXArray.push([row, col]);
         dimentionOrignalWH.push([urlW, urlH]);
         scaleFactor.push([factorX, factorY]);
@@ -102,6 +107,9 @@ function populate() {
         let body = document.getElementById("body");
         let con = document.createElement('div');
         con.id = "con" + l;
+
+        con.style.width = liW * row + "px";
+        con.style.height = liH * col + "px";
 
         con.style.width = liW * row + "px";
         con.style.height = liH * col + "px";
@@ -155,7 +163,8 @@ function populate() {
                 li.style.width = liW + "px";
                 li.style.height = liH + "px";
 
-                li.style.background = "url(" + urls[l] + ") " + (((liW * row) - liW) * i) + "px " + (((liH * col) - liH) * j) + "px";
+                li.style.background = "url(" + urls[l] + ") " + (-(liW * i)) + "px " + (-(liH * j)) + "px";
+                li.style.backgroundSize = iw + "px " + ih + "px";
 
                 li.style.transform = "translate3d(" + (liW * i) + "px, " + (liH * j) + "px, 0)";
 
@@ -182,7 +191,7 @@ function populate() {
         boundArrayArray.push(boundArray);
         positionsArray.push(positions);
         ulArrayStaticArray.push(ulArrayStatic);
-        ulArrayArray.push(chop(ulArray, positions));
+        ulArrayArray.push(chop(ulArray, positions, shuffleArray[l]));
     }
 
     for (let i = 0; i < dimentionOrignalWH.length; i++) {
@@ -333,8 +342,8 @@ function refit(e, mx, my) {
     }
 } //end refit
 
-function chop(array, pos) {
-    let ret = shuffle(array);
+function chop(array, pos, shouldShuffle) {
+    let ret = shouldShuffle ? shuffle(array) : array;
     ulArrayTemp = ret;
     for (let i = 0; i < ret.length; i++) {
         setTranslate(
