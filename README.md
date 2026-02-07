@@ -10,7 +10,7 @@ A lightweight JavaScript library that transforms images into interactive, dragga
 - 🎲 **Shuffle Control**: Optional shuffling of puzzle pieces
 - 📱 **Touch & Mouse Support**: Works seamlessly on desktop and mobile devices
 - 🖼️ **Multiple Puzzles**: Support for multiple independent puzzles on the same page
-- ⚡ **Accurate Division**: Handles images of any dimension with precise tile calculations
+- ⚡ **Flexible Sizing**: Resize images to any dimensions without coordinate issues
 - 🎯 **Auto-completion Detection**: Displays a congratulations message when puzzle is solved
 
 ## Installation
@@ -56,13 +56,13 @@ You can have multiple puzzles on the same page:
 
 ### Adjusting Image Size
 
-Control the puzzle size using standard HTML attributes or CSS:
+Control the puzzle size using standard HTML attributes or CSS. The puzzle adapts to any dimensions, even if the aspect ratio differs from the original image:
 
 ```html
-<!-- Using width attribute -->
+<!-- Using width attribute (maintains aspect ratio) -->
 <img src="images/puzzle.jpg" class="puzzleTree" row="6" col="6" width="600" alt="Puzzle">
 
-<!-- Using CSS -->
+<!-- Using CSS (can change aspect ratio) -->
 <style>
   #myPuzzle {
     width: 800px;
@@ -70,6 +70,9 @@ Control the puzzle size using standard HTML attributes or CSS:
   }
 </style>
 <img id="myPuzzle" src="images/puzzle.jpg" class="puzzleTree" row="6" col="6" alt="Puzzle">
+
+<!-- Setting both width and height with HTML attributes -->
+<img src="images/puzzle.jpg" class="puzzleTree" row="6" col="6" width="800" height="400" alt="Puzzle">
 ```
 
 ## Attributes

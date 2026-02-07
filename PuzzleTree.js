@@ -89,7 +89,8 @@ function getImageDetalas() {
 function populate() {
     for (let l = 0; l < urls.length; l++) {
         let row = divisionXArray[l][0], col = divisionXArray[l][1];
-        let iw = dimentionOrignalWH[l][0], ih = dimentionOrignalWH[l][1];
+        // Use displayed dimensions instead of natural dimensions
+        let iw = dimentionWH[l][0], ih = dimentionWH[l][1];
         // fix 0, 1 division problem 
         let liW = null, liH = null;
         if (row == 0 || row == 1) {
@@ -163,8 +164,9 @@ function populate() {
                 li.style.width = liW + "px";
                 li.style.height = liH + "px";
 
+                // Use the actual puzzle container dimensions for backgroundSize
                 li.style.background = "url(" + urls[l] + ") " + (-(liW * i)) + "px " + (-(liH * j)) + "px";
-                li.style.backgroundSize = iw + "px " + ih + "px";
+                li.style.backgroundSize = (liW * row) + "px " + (liH * col) + "px";
 
                 li.style.transform = "translate3d(" + (liW * i) + "px, " + (liH * j) + "px, 0)";
 
@@ -184,19 +186,19 @@ function populate() {
             body.appendChild(span);
         }//end of loop
 
-        for (let i = 0; i < ulArray.length; i++) {
-            boundArray.push(document.getElementById(ulArray[i]).getBoundingClientRect());
-        }
-
         boundArrayArray.push(boundArray);
         positionsArray.push(positions);
         ulArrayStaticArray.push(ulArrayStatic);
         ulArrayArray.push(chop(ulArray, positions, shuffleArray[l]));
     }
 
-    for (let i = 0; i < dimentionOrignalWH.length; i++) {
-        document.getElementById(ulIds[i]).style.transformOrigin = "top left";
-        document.getElementById(ulIds[i]).style.transform = "scale(" + scaleFactor[i][0] + "," + scaleFactor[i][1] + ")";
+    // Calculate bounding boxes after all pieces are positioned
+    for (let l = 0; l < urls.length; l++) {
+        boundArray = [];
+        for (let i = 0; i < ulArrayArray[l].length; i++) {
+            boundArray.push(document.getElementById(ulArrayArray[l][i]).getBoundingClientRect());
+        }
+        boundArrayArray[l] = boundArray;
     }
 }//end populate
 
