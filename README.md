@@ -2,7 +2,7 @@
 
 A lightweight JavaScript library that transforms images into interactive, draggable jigsaw puzzles directly in your web browser. No dependencies required!
 
-![Demo](gif.gif)
+![Demo](Screenshot.png)
 
 ## Features
 
@@ -121,3 +121,5 @@ Contributions are welcome! Feel free to submit issues or pull requests.
 ## Author
 
 Created by [Shay Quinn](https://github.com/shayquinn)
+
+![Demo](gif.gif)
